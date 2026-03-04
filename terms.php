@@ -18,179 +18,148 @@ $domainTitle = ucwords(str_replace('-', ' ', $domainSlug));
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $domainTitle ?> — Экспертный консалтинг и стратегии роста
+        <?= $domainTitle ?> — Инновации на пальцах
     </title>
-<link rel="icon"
-    href="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23635BFF;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%230A2540;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 16H9L12 6L18 26L21 16H28' stroke='url(%23grad)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='28' cy='16' r='3' fill='%23635BFF' /%3E%3C/svg%3E"
-    type="image/svg+xml">
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2300FF88%22/><path d=%22M30 50 L50 70 L70 30%22 stroke=%22%23121212%22 stroke-width=%2210%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Manrope:wght@500;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header class="header">
+    <header class="header" id="header">
         <div class="container header__container">
-            <a href="./#hero" class="logo">
-                <span class="logo__icon"></span>
+            <a href="./#about" class="logo">
+                <span class="logo__dot"></span>
                 <span class="logo__text">
                     <?= $domainTitle ?>
                 </span>
             </a>
 
-            <nav class="nav">
+            <nav class="nav" id="nav">
                 <ul class="nav__list">
-                    <li><a href="./#hero" class="nav__link">Главная</a></li>
-                    <li><a href="./#strategies" class="nav__link">Стратегии</a></li>
-                    <li><a href="./#expertise" class="nav__link">Экспертиза</a></li>
-                    <li><a href="./#insights" class="nav__link">Инсайты</a></li>
+                    <li><a href="./#about" class="nav__link">О платформе</a></li>
+                    <li><a href="./#courses" class="nav__link">Программы</a></li>
+                    <li><a href="./#tech" class="nav__link">Технологии</a></li>
                     <li><a href="./#reviews" class="nav__link">Отзывы</a></li>
                 </ul>
             </nav>
 
-            <a href="./#contact" class="btn btn--outline header__cta">Связаться</a>
-
-            <button class="burger" aria-label="Menu">
-                <span></span>
-            </button>
+            <div class="header__actions">
+                <a href="./#contact" class="btn btn--outline">Связаться</a>
+                <button class="burger" id="burger" aria-label="Menu">
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
 <main>
     <section class="pages">
         <div class="container">
-            <h1>Условия использования</h1>
+            <h1 data-aos="fade-up">Условия использования</h1>
 
-            <p>
-                Добро пожаловать на сайт <strong><?= $domainTitle ?></strong>! Настоящие Условия использования
+            <p data-aos="fade-up" data-aos-delay="100">
+                Добро пожаловать на платформу <strong><?= $domainTitle ?></strong>! Настоящие Условия использования
                 (далее — «Условия» или «Соглашение») представляют собой юридически
-                обязывающий договор между вами (далее — «Пользователь») и <strong><?= $domainTitle ?></strong>
+                обязывающий договор между вами (далее — «Пользователь») и командой <strong><?= $domainTitle ?></strong>
                 (далее — «Компания», «мы», «нас»). Пожалуйста, внимательно
                 ознакомьтесь с ними. Используя наш сайт и любые связанные с ним
-                услуги, вы подтверждаете свое полное и безоговорочное согласие с
-                данными Условиями. Если вы не согласны, вы должны немедленно
-                прекратить использование сайта.
+                инновационные услуги, вы подтверждаете свое полное согласие с
+                данными Условиями. 
             </p>
 
-            <h2>1. Предмет Соглашения</h2>
-            <p>
+            <h2 data-aos="fade-up">1. Предмет Соглашения</h2>
+            <p data-aos="fade-up">
                 Компания предоставляет Пользователю доступ к использованию сайта
-                <strong><?= $fullDomain ?></strong> и его функционала, включая, но не ограничиваясь: доступ к
-                инновационным материалам, статьям в блоге, экспертным консультациям и другим инструментам 
-                развития (далее — «Услуги»). Настоящее Соглашение регулирует все аспекты
-                взаимодействия Пользователя с платформой.
+                <strong><?= $fullDomain ?></strong> и его функционала, включая доступ к
+                образовательным материалам, AI-инструментам, экспертным консультациям и другим технологиям 
+                развития (далее — «Услуги»). Соглашение регулирует все аспекты взаимодействия с нашей цифровой инфраструктурой.
             </p>
 
-            <h2>2. Обязанности и права Пользователя</h2>
-            <p>
-                Вы обязуетесь использовать сайт исключительно в законных и личных
-                некоммерческих целях. При использовании платформы <strong><?= $domainTitle ?></strong>
-                <strong>запрещается</strong>:
+            <h2 data-aos="fade-up">2. Обязанности и права Пользователя</h2>
+            <p data-aos="fade-up">
+                Вы обязуетесь использовать сайт исключительно в законных и личных целях для профессионального роста. 
+                На платформе <strong><?= $domainTitle ?></strong> строго запрещается:
             </p>
             <ul>
-                <li>
-                    Публиковать, передавать или распространять любую информацию,
-                    которая является незаконной, вредоносной, клеветнической,
-                    нарушает авторские права или разжигает ненависть.
-                </li>
-                <li>
-                    Предпринимать любые действия, которые могут нарушить нормальную
-                    работу сайта, его безопасность или привести к перегрузке
-                    цифровой инфраструктуры <strong><?= $domainTitle ?></strong>.
-                </li>
-                <li>
-                    Использовать автоматизированные скрипты (ботов) для сбора
-                    информации или иного взаимодействия с сайтом без нашего
-                    предварительного письменного разрешения.
-                </li>
-                <li>
-                    Выдавать себя за другое лицо или предоставлять недостоверную
-                    информацию о себе при регистрации на консультацию.
-                </li>
+                <li data-aos="fade-up">Публиковать информацию, нарушающую авторские права или законодательство ЕС.</li>
+                <li data-aos="fade-up">Предпринимать действия, направленные на нарушение работы программного кода или перегрузку серверов.</li>
+                <li data-aos="fade-up">Использовать автоматизированные скрипты для сбора данных без официального разрешения Оператора.</li>
+                <li data-aos="fade-up">Предоставлять недостоверную информацию при регистрации на экспертные сессии.</li>
             </ul>
 
-            <h2>3. Интеллектуальная собственность</h2>
-            <p>
-                Весь контент, размещенный на сайте <strong><?= $fullDomain ?></strong>, включая тексты, графику,
-                изображения, видео, логотипы и программный код (далее — «Контент»), является объектом интеллектуальной
-                собственности Компании или ее партнеров. Вам предоставляется ограниченная
-                лицензия на доступ и использование Контента в личных целях для профессионального развития. 
-                Любое копирование, воспроизведение или распространение Контента без предварительного 
-                письменного разрешения правообладателя строго запрещено.
+            <h2 data-aos="fade-up">3. Интеллектуальная собственность</h2>
+            <p data-aos="fade-up">
+                Весь контент на сайте <strong><?= $fullDomain ?></strong>, включая программный код визуализаций, графику, 
+                тексты и логотипы, является объектом интеллектуальной собственности. Вам предоставляется ограниченная 
+                лицензия на использование Контента в личных целях. Любое коммерческое использование или 
+                копирование без письменного разрешения запрещено.
             </p>
 
-            <h2>4. Ограничение ответственности и отказ от гарантий</h2>
-            <p>
-                Услуги и все материалы на сайте предоставляются по принципу «как
-                есть» (as is). Мы не даем никаких гарантий, что сайт будет работать бесперебойно, 
-                без ошибок или что его контент является абсолютно точным в контексте динамически 
-                меняющегося рынка в Германии и странах ЕС.
-            </p>
-            <p>
-                Компания не несет ответственности за любые прямые или косвенные
-                убытки, которые могут возникнуть у Пользователя в результате использования 
-                или невозможности использования платформы <strong><?= $domainTitle ?></strong>. 
-                Это также относится к любому контенту сторонних ресурсов, ссылки на которые 
-                могут быть размещены на нашем сайте.
+            <h2 data-aos="fade-up">4. Ограничение ответственности</h2>
+            <p data-aos="fade-up">
+                Услуги и материалы предоставляются по принципу «как есть» (as is). Мы не гарантируем, что сайт будет работать 
+                бесперебойно в случае форс-мажорных обстоятельств. Компания не несет ответственности за прямые или косвенные 
+                убытки, возникшие в результате использования методологий платформы <strong><?= $domainTitle ?></strong>, 
+                так как финальный результат зависит от индивидуальных действий Пользователя и рыночных условий в Германии.
             </p>
 
-            <h2>5. Изменения в Условиях использования</h2>
-            <p>
-                Мы оставляем за собой право в любое время изменять или дополнять настоящие Условия. 
-                Все изменения вступают в силу с момента их публикации на этой странице. 
-                Ваше дальнейшее использование сайта <strong><?= $fullDomain ?></strong> после внесения 
-                изменений означает ваше автоматическое согласие с новой редакцией Условий.
+            <h2 data-aos="fade-up">5. Изменения и разрешение споров</h2>
+            <p data-aos="fade-up">
+                Мы оставляем за собой право дополнять Условия в любое время. Все споры, которые не могут быть решены 
+                путем конструктивных переговоров, подлежат рассмотрению в судебных органах по месту регистрации 
+                Компании в <strong>Берлине, Германия</strong>.
             </p>
 
-            <h2>6. Разрешение споров</h2>
-            <p>
-                Все споры и разногласия стороны будут стремиться разрешить путем конструктивных переговоров.
-                В случае если согласие не будет достигнуто, спор подлежит рассмотрению в соответствии 
-                с действующим законодательством по месту регистрации Компании в <strong>Германии</strong>.
-            </p>
-
-            <h2>7. Контактная информация</h2>
-            <p>
-                Если у вас возникли вопросы, связанные с настоящими Условиями,
-                пожалуйста, свяжитесь с нами по электронной почте:
-                <br><br>
-                Email: <a href="mailto:hello@<?= $fullDomain ?>">hello@<?= $fullDomain ?></a><br>
-                Телефон: <a href="tel:+390697639457">+390697639457</a>
-            </p>
+            <div class="pages-footer" data-aos="fade-in" data-aos-delay="300" style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+                <h2 style="margin-top: 0;">Контактная информация</h2>
+                <p>
+                    Если у вас возникли вопросы по Условиям использования <strong><?= $domainTitle ?></strong>:
+                    <br><br>
+                    <strong>Email:</strong> <a href="mailto:support@<?= $fullDomain ?>">support@<?= $fullDomain ?></a><br>
+                    <strong>Телефон:</strong> <a href="tel:+493081215194">+49 30 8121 5194</a><br>
+                    <strong>Адрес:</strong> Friedrichstraße 176, 10117 Berlin, Germany
+                </p>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">
+                    Действующая редакция от 4 марта 2026 года.
+                </p>
+            </div>
         </div>
     </section>
 </main>
-
-
-
-
-     <footer class="footer">
+    <footer class="footer">
         <div class="container footer__grid">
             <div class="footer__col">
-                <a href="./#hero" class="logo footer__logo">
-                    <span class="logo__icon"></span>
+                <a href="./#about" class="logo footer__logo">
+                    <span class="logo__dot"></span>
                     <span class="logo__text">
                         <?= $domainTitle ?>
                     </span>
                 </a>
-                <p class="footer__description">Технологии нового поколения для вашего бизнеса. Переосмыслите подход к
-                    развитию вместе с экспертной поддержкой.</p>
+                <p class="footer__description">
+                    Образовательная платформа нового поколения. Понимаем сложное, внедряем передовое.
+                </p>
             </div>
 
             <div class="footer__col">
                 <h4 class="footer__title">Навигация</h4>
                 <ul class="footer__links">
-                    <li><a href="./#hero">Главная</a></li>
-                    <li><a href="./#strategies">Стратегии</a></li>
-                    <li><a href="./#expertise">Экспертиза</a></li>
-                    <li><a href="./#insights">Инсайты</a></li>
+                    <li><a href="./#about">О платформе</a></li>
+                    <li><a href="./#courses">Курсы</a></li>
+                    <li><a href="./#tech">Технологии</a></li>
+                    <li><a href="./#reviews">Отзывы</a></li>
                 </ul>
             </div>
 
@@ -209,46 +178,41 @@ $domainTitle = ucwords(str_replace('-', ' ', $domainSlug));
 
             <div class="footer__col">
                 <h4 class="footer__title">Контакты</h4>
-                <ul class="footer__contact">
-                    <li><i data-lucide="phone" class="icon-sm"></i> +390697639457</li>
-                    <li><i data-lucide="mail" class="icon-sm"></i> hello@
-                        <?= $fullDomain ?>
+                <ul class="footer__contacts">
+                    <li>
+                        <i data-lucide="phone" class="icon-sm"></i>
+                        <a href="tel:+493081215194">+49 30 8121 5194</a>
                     </li>
-                    <li><i data-lucide="map-pin" class="icon-sm"></i> Kurfürstendamm 21, 10719 Berlin, Germany</li>
+                    <li>
+                        <i data-lucide="mail" class="icon-sm"></i>
+                        <a href="mailto:hello@<?= $fullDomain ?>">hello@
+                            <?= $fullDomain ?>
+                        </a>
+                    </li>
+                    <li>
+                        <i data-lucide="map-pin" class="icon-sm"></i>
+                        <span>Friedrichstraße 176, 10117 Berlin, Germany</span>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="container footer__bottom">
-            <p>&copy; 2026
-                <?= $domainTitle ?>. Все права защищены. Предложение активно только в странах ЕС.
+        <div class="footer__bottom container">
+            <p>&copy;
+                2026
+                <?= $domainTitle ?>. Все права защищены. Предложение активно в странах ЕС.
             </p>
         </div>
     </footer>
-<div class="mobile-menu">
-    <button class="mobile-menu__close"><i data-lucide="x"></i></button>
-    <ul class="mobile-menu__list">
-        <li><a href="./#hero" class="mobile-menu__link">Главная</a></li>
-        <li><a href="./#strategies" class="mobile-menu__link">Стратегии</a></li>
-        <li><a href="./#expertise" class="mobile-menu__link">Экспертиза</a></li>
-        <li><a href="./#insights" class="mobile-menu__link">Инсайты</a></li>
-        <li><a href="./#reviews" class="mobile-menu__link">Отзывы</a></li>
-        <li><a href="./#contact" class="btn btn--primary">Связаться</a></li>
-    </ul>
-</div>
-
-<div id="cookie-popup" class="cookie-popup">
-    <div class="cookie-popup__content">
-        <p>Этот сайт использует cookies для улучшения работы. Подробнее — в нашей <a href="./cookies.php">Cookie
-                политике</a>.</p>
-        <button id="cookie-accept" class="btn btn--accent-sm">Принять</button>
-    </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>    
- 
-    
+        <div class="cookie-popup" id="cookiePopup">
+            <div class="cookie-popup__content">
+                <p>Этот сайт использует cookies для улучшения работы. Подробнее — в нашей <a href="./cookies.php">Cookie
+                        политике</a>.</p>
+                <button class="btn btn--primary btn--sm" id="cookieAccept">Принять</button>
+            </div>
+        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

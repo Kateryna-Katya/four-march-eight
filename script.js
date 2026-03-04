@@ -1,147 +1,238 @@
-import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js';
+/**
+ * FOUR-MARCH-EIGHT — ИННОВАЦИОННАЯ ПЛАТФОРМА
+ * Финальный скрипт управления интерфейсом
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. Инициализация иконок ---
-    if (typeof lucide !== 'undefined') lucide.createIcons();
+    // --- 1. ИНИЦИАЛИЗАЦИЯ БИБЛИОТЕК ---
+    
+    // Иконки Lucide
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
-    // --- 2. Мобильное меню («Бургер») ---
-    const burger = document.querySelector('.burger');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const closeMenu = document.querySelector('.mobile-menu__close');
-    const menuLinks = document.querySelectorAll('.mobile-menu__link');
+    // AOS (Animate On Scroll)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            disable: 'mobile' // Опционально отключаем на слабых устройствах
+        });
+    }
 
-    const toggleMenu = () => mobileMenu.classList.toggle('mobile-menu--active');
 
-    burger?.addEventListener('click', toggleMenu);
-    closeMenu?.addEventListener('click', toggleMenu);
-    menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+    // --- 2. УПРАВЛЕНИЕ ХЕДЕРОМ ---
 
-    // --- 3. Header Scroll Effect ---
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => {
-        header?.classList.toggle('header--scrolled', window.scrollY > 50);
+    const header = document.getElementById('header');
+    
+    const handleScroll = () => {
+        if (window.scrollY > 50) {
+            header.classList.add('header--scrolled');
+        } else {
+            header.classList.remove('header--scrolled');
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+
+    // --- 3. МОБИЛЬНОЕ МЕНЮ ---
+
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('nav');
+    const navLinks = document.querySelectorAll('.nav__link');
+
+    const toggleMenu = () => {
+        nav.classList.toggle('nav--active');
+        burger.classList.toggle('burger--active');
+        // Блокируем скролл при открытом меню
+        document.body.style.overflow = nav.classList.contains('nav--active') ? 'hidden' : '';
+    };
+
+    burger.addEventListener('click', toggleMenu);
+
+    // Закрытие при клике на ссылку
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('nav--active');
+            burger.classList.remove('burger--active');
+            document.body.style.overflow = '';
+        });
     });
 
-    // --- 4. Three.js Hero Scene ---
-    const initHeroScene = () => {
-        const container = document.getElementById('hero-canvas');
-        if (!container) return;
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+    // --- 4. HERO VISUALIZATION (ANIME.JS) ---
 
-        const geometry = new THREE.BufferGeometry();
-        const vertices = [];
-        for (let i = 0; i < 4000; i++) {
-            vertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
-        }
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-        const points = new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0x635BFF, size: 2, transparent: true, opacity: 0.6 }));
-        scene.add(points);
-        camera.position.z = 1000;
-
-        let mouseX = 0, mouseY = 0;
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - window.innerWidth / 2) / 150;
-            mouseY = (e.clientY - window.innerHeight / 2) / 150;
+    if (typeof anime !== 'undefined') {
+        // Таймлайн сборки элементов
+        const heroVisualTimeline = anime.timeline({
+            easing: 'easeOutElastic(1, .8)',
+            duration: 1200
         });
 
-        const animate = () => {
-            requestAnimationFrame(animate);
-            points.rotation.x += 0.0005; points.rotation.y += 0.0005;
-            camera.position.x += (mouseX - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-            renderer.render(scene, camera);
-        };
-        animate();
-    };
-
-    // --- 5. Image Morphing (Strategies) ---
-    const initStrategyMorph = () => {
-        const items = document.querySelectorAll('.strategy-item');
-        const morphImg = document.querySelector('.morph-img');
-        const shapes = {
-            circle: 'circle(45% at 50% 50%)',
-            polygon: 'polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%)',
-            blob: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)'
-        };
-        items.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                items.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-                if(morphImg) morphImg.style.clipPath = shapes[item.dataset.shape] || shapes.circle;
+        heroVisualTimeline
+            .add({
+                targets: '.main-dot',
+                scale: [0, 1],
+                opacity: [0, 1],
+                delay: 800,
+                duration: 800
+            })
+            .add({
+                targets: '.shape-1',
+                rotate: '1turn',
+                scale: [0, 1],
+                opacity: [0, 1],
+                offset: '-=600'
+            })
+            .add({
+                targets: '.shape-2',
+                translateY: [-100, 0],
+                rotate: '-0.5turn',
+                scale: [0, 1],
+                opacity: [0, 0.7],
+                offset: '-=800'
+            })
+            .add({
+                targets: '.tech-line',
+                scaleX: [0, 1],
+                opacity: [0, 1],
+                delay: anime.stagger(150),
+                offset: '-=700'
+            })
+            .add({
+                targets: '.shape-3',
+                translateX: [50, 0],
+                opacity: [0, 1],
+                rotate: '30deg',
+                offset: '-=500'
             });
+
+        // Бесконечное "плавание" контейнера
+        anime({
+            targets: '.anime-container',
+            translateX: [-15, 15],
+            translateY: [-15, 15],
+            duration: 5000,
+            direction: 'alternate',
+            loop: true,
+            easing: 'easeInOutSine'
         });
+
+        // Анимация появления логотипа в хедере
+        anime({
+            targets: '.logo__dot',
+            scale: [0, 1.2, 1],
+            rotate: '1turn',
+            duration: 1500,
+            easing: 'easeInOutElastic(1, .6)'
+        });
+    }
+
+
+    // --- 5. ФОРМА КОНТАКТОВ И ВАЛИДАЦИЯ ---
+
+    const contactForm = document.getElementById('mainForm');
+    const phoneInput = document.getElementById('phoneInput');
+    const captchaQuestion = document.getElementById('captchaQuestion');
+    const captchaInput = document.getElementById('captchaAnswer');
+    const successMsg = document.getElementById('successMsg');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Ограничение: только цифры в телефоне
+    if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9+]/g, '');
+        });
+    }
+
+    // Математическая капча
+    let correctAnswer = 0;
+    const generateCaptcha = () => {
+        const n1 = Math.floor(Math.random() * 10) + 2;
+        const n2 = Math.floor(Math.random() * 10) + 1;
+        correctAnswer = n1 + n2;
+        if (captchaQuestion) {
+            captchaQuestion.innerText = `${n1} + ${n2}`;
+        }
     };
+    generateCaptcha();
 
-    // --- 6. Контактная форма + Валидация телефона + Капча ---
-    const initContactForm = () => {
-        const form = document.getElementById('ajax-form');
-        const phoneInput = document.getElementById('phone');
-        const questionEl = document.getElementById('captcha-question');
-        const messageEl = document.getElementById('form-message');
-
-        if (!form) return;
-
-        // Валидация телефона (только цифры и +)
-        phoneInput?.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^\d+]/g, '');
-        });
-
-        // Генерация капчи
-        let n1 = Math.floor(Math.random() * 10), n2 = Math.floor(Math.random() * 10);
-        if(questionEl) questionEl.textContent = `${n1} + ${n2}`;
-
-        form.addEventListener('submit', async (e) => {
+    // Обработка отправки
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const answer = parseInt(document.getElementById('captcha-answer').value);
-            if (answer !== (n1 + n2)) {
-                messageEl.textContent = "Ошибка капчи!";
-                messageEl.className = "form-message error";
+
+            // Проверка капчи
+            if (parseInt(captchaInput.value) !== correctAnswer) {
+                captchaInput.style.borderColor = '#ff5f56';
+                alert('Неверный ответ на защитный вопрос. Попробуйте снова.');
+                generateCaptcha();
+                captchaInput.value = '';
                 return;
             }
 
-            const btn = form.querySelector('button');
-            btn.disabled = true; btn.textContent = "Отправка...";
+            // Имитация AJAX отправки
+            submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = 'Обработка данных...';
 
-            await new Promise(r => setTimeout(r, 1500)); // Имитация AJAX
-            
-            messageEl.textContent = "Успешно отправлено!";
-            messageEl.className = "form-message success";
-            form.reset();
-            btn.disabled = false; btn.innerHTML = 'Отправить запрос <i data-lucide="send"></i>';
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        });
-    };
+            setTimeout(() => {
+                // Скрываем форму, показываем успех
+                contactForm.reset();
+                submitBtn.style.display = 'none';
+                successMsg.style.display = 'flex';
 
-    // --- 7. Cookie Popup ---
-    const initCookiePopup = () => {
-        const popup = document.getElementById('cookie-popup');
-        const acceptBtn = document.getElementById('cookie-accept');
-        if (!localStorage.getItem('cookies_accepted')) {
-            setTimeout(() => popup?.classList.add('cookie-popup--active'), 2000);
-        }
-        acceptBtn?.addEventListener('click', () => {
-            localStorage.setItem('cookies_accepted', 'true');
-            popup?.classList.remove('cookie-popup--active');
-        });
-    };
-
-    // --- Запуск ---
-    initHeroScene();
-    initStrategyMorph();
-    initContactForm();
-    initCookiePopup();
-    if (typeof Swiper !== 'undefined') {
-        new Swiper('.insights-slider', {
-            slidesPerView: 1, spaceBetween: 30, loop: true,
-            navigation: { nextEl: '.swiper-button-next-custom', prevEl: '.swiper-button-prev-custom' },
-            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+                // Плавное появление сообщения через Anime.js
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: successMsg,
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        duration: 1000,
+                        easing: 'easeOutExpo'
+                    });
+                }
+            }, 1500);
         });
     }
+
+
+    // --- 6. COOKIE POPUP ---
+
+    const cookiePopup = document.getElementById('cookiePopup');
+    const cookieAccept = document.getElementById('cookieAccept');
+
+    if (cookiePopup && !localStorage.getItem('cookiesAccepted')) {
+        // Показываем через 3 секунды после загрузки
+        setTimeout(() => {
+            cookiePopup.classList.add('cookie-popup--active');
+        }, 3000);
+    }
+
+    if (cookieAccept) {
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookiePopup.classList.remove('cookie-popup--active');
+        });
+    }
+
+
+    // --- 7. ПЛАВНЫЙ СКРОЛЛ ДЛЯ ВСЕХ ССЫЛОК ---
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80, // Учитываем высоту хедера
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
 });
